@@ -1,3 +1,5 @@
+# AWS Command from toor directory
+# aws cloudformation create-stack --stack-name smart-hub-athena-glue-stack --template-body file://cloudformation/smart-hub-athena-glue.yml --parameters ParameterKey=DataBucketName,ParameterValue=smart-hub-data-123456789012-us-east-1 ParameterKey=ScriptBucketName,ParameterValue=smart-hub-scripts-123456789012-us-east-1 ParameterKey=LogBucketName,ParameterValue=smart-hub-logs-123456789012-us-east-1 --capabilities CAPABILITY_NAMED_IAM
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Glue Database, Tables, Crawlers, ETL Jobs, and Crawler AIAM Role for Athena-Glue demo"
 Parameters:
@@ -239,7 +241,7 @@ Resources:
               - sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - arn:aws:iam:aws:policy/service-role/AWSGlueServiceRole
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
       Policies:
         - PolicyName: DemoCrawlerPolicy
           PolicyDocument:
@@ -385,7 +387,7 @@ Resources:
         CatalogTargets:
           - DatabaseName: !Ref GlueDatabase
             Tables:
-              - etl_output_parquet
+              - etl_tmp_output_parquet
       SchemaChangePolicy:
         UpdateBehavior: "UPDATE_IN_DATABASE"
         DeleteBehavior: "LOG"
